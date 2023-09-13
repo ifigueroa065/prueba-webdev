@@ -70,15 +70,6 @@ $registros = $stmt_registros->fetchAll(PDO::FETCH_ASSOC);
             <h1>Lista de Registros</h1>
         </div>
 
-        <!-- Agrega una sección para mostrar los periodos mensuales -->
-        <div>
-            <h2>Periodos Mensuales:</h2>
-            <ul>
-                <?php foreach ($periodos as $periodo) { ?>
-                    <li><?= $periodo['periodo'] ?></li>
-                <?php } ?>
-            </ul>
-        </div>
 
         <table class="table table-striped table-dark">
             <thead>
