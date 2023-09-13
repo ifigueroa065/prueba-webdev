@@ -69,7 +69,6 @@ $registros = $stmt_registros->fetchAll(PDO::FETCH_ASSOC);
             <h1>Bienvenido, <?php echo $_SESSION["username"]; ?></h1>
             <h1>Lista de Registros</h1>
         </div>
-       
 
         <!-- Agrega una sección para mostrar los periodos mensuales -->
         <div>
@@ -84,36 +83,34 @@ $registros = $stmt_registros->fetchAll(PDO::FETCH_ASSOC);
         <table class="table table-striped table-dark">
             <thead>
                 <tr>
+                    <th scope="col">ID</th> <!-- Nueva columna para mostrar el ID -->
                     <th scope="col">Fecha del Día</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Edad</th>
                     <th scope="col">Fecha de Inicio <br> Primaria</th>
                     <th scope="col">Fecha de Inicio <br> Secundaria</th>
-                    <th>Diferencia <br> del rango de Fechas</th> <!-- Nueva columna para mostrar la diferencia -->
-                    <th colspan="2">Acciones</th> <!-- Nueva columna para mostrar botones de acciones -->
+                    <th>Diferencia <br> del rango de Fechas</th>
+                    <th colspan="2">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($registros as $registro) { ?>
                     <tr>
+                        <td><?= $registro['id'] ?></td> <!-- Muestra el ID del registro -->
                         <td><?= $registro['fecha_dia'] ?></td>
                         <td><?= $registro['nombre'] ?></td>
                         <td><?= $registro['edad'] ?></td>
                         <td><?= $registro['fecha_primaria'] ?></td>
                         <td><?= $registro['fecha_secundaria'] ?></td>
-                        <!-- Nueva columna para mostrar la diferencia de fechas -->
                         <td><?= obtenerDiferenciaFechas($registro['fecha_primaria'], $registro['fecha_secundaria']) ?></td>
-                        <!-- Nueva columna para mostrar botones de acciones -->
                         <td>
                             <form method="POST" action="editar_registro.php">
                                 <input type="hidden" name="registro_id" value="<?= $registro['id'] ?>">
                                 <button type="submit" class="btn btn-warning">Editar</button>
                             </form>
-                          
-                            
                         </td>
-                        <td>    
-                        <form method="POST" action="eliminar_registro.php" onsubmit="return confirm('¿Estás seguro de eliminar este registro?');">
+                        <td>
+                            <form method="POST" action="eliminar_registro.php" onsubmit="return confirm('¿Estás seguro de eliminar este registro?');">
                                 <input type="hidden" name="registro_id" value="<?= $registro['id'] ?>">
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                             </form>
