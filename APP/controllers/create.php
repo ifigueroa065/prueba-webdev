@@ -69,73 +69,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <div class="container">
-    <h1>Crear Registro</h1>
-    
-    <?php if (!empty($errors)) { ?>
-        <div class="error">
-            <ul>
-                <?php foreach ($errors as $error) { ?>
-                    <li><?= $error ?></li>
-                <?php } ?>
-            </ul>
-        </div>
-    <?php } ?>
-
-    <form method="POST">
-        <!-- El campo "Fecha del Día" se agrega automáticamente -->
+        <h1 class="mt-4">Crear Registro</h1>
         
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" required><br>
+        <?php if (!empty($errors)) { ?>
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    <?php foreach ($errors as $error) { ?>
+                        <li><?= $error ?></li>
+                    <?php } ?>
+                </ul>
+            </div>
+        <?php } ?>
 
-        <label for="edad">Edad:</label>
-        <input type="number" name="edad" required><br>
+        <form method="POST" class="mt-4">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" name="nombre" class="form-control" required>
+            </div>
 
-        <label for="fecha_primaria">Fecha de Inicio de Estudios de Primaria:</label>
-        <input type="date" name="fecha_primaria" required><br>
+            <div class="mb-3">
+                <label for="edad" class="form-label">Edad:</label>
+                <input type="number" name="edad" class="form-control" required>
+            </div>
 
-        <label for="fecha_secundaria">Fecha de Inicio de Estudios de Secundaria:</label>
-        <input type="date" name="fecha_secundaria" required><br>
+            <div class="mb-3">
+                <label for="fecha_primaria" class="form-label">Fecha de Inicio de Estudios de Primaria:</label>
+                <input type="date" name="fecha_primaria" class="form-control" required>
+            </div>
 
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </form>
-    
-    <br>
-    <a href="list.php">Volver a la Lista</a>
+            <div class="mb-3">
+                <label for="fecha_secundaria" class="form-label">Fecha de Inicio de Estudios de Secundaria:</label>
+                <input type="date" name="fecha_secundaria" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+        
+        <div class="mt-4">
+            <a href="list.php" class="btn btn-secondary">Volver a la Lista</a>
+        </div>
     </div>
-    
 
-    
-    <div >
-
-        <footer class="bg-dark text-center text-white">
-        <!-- Grid container -->
-        <div class="container p-4 pb-0">
-            <!-- Section: Social media -->
+    <footer class="bg-dark text-center text-white mt-4">
+        <div class="container p-4">
             <section class="mb-4">
-            
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/isa%C3%AD-figueroa-5675bb146/" role="button">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
 
-            <!-- Linkedin -->
-            <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/isa%C3%AD-figueroa-5675bb146/" role="button"
-                ><i class="fab fa-linkedin-in"></i
-            ></a>
-
-            <!-- Github -->
-            <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/ifigueroa065" role="button"
-                ><i class="fab fa-github"></i
-            ></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/ifigueroa065" role="button">
+                    <i class="fab fa-github"></i>
+                </a>
             </section>
-            <!-- Section: Social media -->
         </div>
-        <!-- Grid container -->
-
-        <!-- Copyright -->
+        
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2023 
-            <a >Isaí Figueroa | Desarrollador Web</a>
+            © 2023 Isaí Figueroa | Desarrollador Web
         </div>
-        <!-- Copyright -->
-        </footer>
-  
-    </div>
+    </footer>
 </body>
 </html>
