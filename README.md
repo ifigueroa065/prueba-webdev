@@ -7,6 +7,9 @@ Desarrollando un crud utilizando php y mysql
 ### :orange_book: XAMPP 
     https://www.apachefriends.org/es/index.html
 
+### :blue_book: Tienes problemas con el puerto de mysql?
+    https://www.youtube.com/watch?v=RF5PDcrEYmU
+
 ### :b: Bootstrap
 
 ```html
