@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('models/db.php'); // Incluye la configuración de conexión desde bd.php
+include('../models/db.php'); // Incluye la configuración de conexión desde db.php
 
 // Inicializa la variable de mensaje de error
 $mensaje_error = "";
@@ -11,22 +11,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contrasena = md5($_POST["contrasena"]);
 
     try {
-        // Consulta para verificar las credenciales del usuario
-        $query = "SELECT id, nombre_usuario FROM usuarios WHERE nombre_usuario = ? AND contrasena_md5 = ?";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute([$nombre_usuario, $contrasena]);
+        // Consulta para verificar si el usuario ya existe
+        $consulta_existencia = "SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = ?";
+        $stmt_existencia = $pdo->prepare($consulta_existencia);
+        $stmt_existencia->execute([$nombre_usuario]);
+        $existe_usuario = $stmt_existencia->fetchColumn();
 
-        if ($stmt->rowCount() == 1) {
-            $fila = $stmt->fetch();
-            $_SESSION["user_id"] = $fila["id"];
-            $_SESSION["username"] = $fila["nombre_usuario"];
-            header("Location: controllers/list.php");
-            exit();
+        if ($existe_usuario) {
+            $mensaje_error = "El nombre de usuario ya existe. Por favor, elige otro.";
         } else {
-            $mensaje_error = "Credenciales incorrectas. Intenta de nuevo.";
+            // Si el usuario no existe, procede con el registro
+            $query = "INSERT INTO usuarios (nombre_usuario, contrasena_md5) VALUES (?, ?)";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([$nombre_usuario, $contrasena]);
+
+            // Establece una variable de sesión para indicar el registro exitoso
+            $_SESSION["registro_exitoso"] = true;
         }
     } catch (PDOException $e) {
-        echo "Error en la consulta: " . $e->getMessage();
+        echo "Error al registrar el usuario: " . $e->getMessage();
     }
 }
 ?>
@@ -35,18 +38,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Iniciar Sesión</title>
+    <title>Registro de Usuario</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    
     <div class="container">
         <div class="row justify-content-center align-items-center min-vh-100">
             <div class="col-md-6">
                 <div class="container-login p-4">
-                    <h1 class="text-center">Iniciar Sesión</h1>
+                    <h1 class="text-center">Regístrate</h1>
                     
                     <!-- Muestra el mensaje de error en un cuadro de alerta -->
                     <?php if (!empty($mensaje_error)) { ?>
@@ -67,16 +68,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                            <button type="submit" class="btn btn-primary">Registrarse</button>
                         </div>
                     </form>
                     
-                    <p class="text-center">¿No tienes una cuenta? <a href="controllers/register.php">Regístrate</a></p>
+                    <p class="text-center">¿Ya tienes una cuenta? <a href="../login.php">Inicia sesión</a></p>
                 </div>
             </div>
         </div>
     </div>
     
+    <!-- Muestra el mensaje de registro exitoso en un cuadro de alerta -->
+    <?php if (isset($_SESSION["registro_exitoso"]) && $_SESSION["registro_exitoso"]) { ?>
+        <script>
+            alert("Registro exitoso. Iniciar sesión");
+        </script>
+        <?php
+        // Restablece la variable de sesión
+        $_SESSION["registro_exitoso"] = false;
+        ?>
+    <?php } ?>
     
     <div >
 
@@ -110,8 +121,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </footer>
   
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

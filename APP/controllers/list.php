@@ -2,11 +2,11 @@
 session_start();
 
 if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit();
 }
 
-include 'db.php';
+include '../models/db.php';
 
 // Función para calcular y formatear la diferencia de fechas en años, meses y días
 function obtenerDiferenciaFechas($fecha_inicio, $fecha_fin) {
@@ -58,10 +58,10 @@ $registros = $stmt_registros->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Lista de Registros</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+   
 </head>
 <body>
     <div class="container">
@@ -70,24 +70,23 @@ $registros = $stmt_registros->fetchAll(PDO::FETCH_ASSOC);
             <h1>Lista de Registros</h1>
         </div>
 
-
-        <table class="table table-striped table-dark">
+        <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th scope="col">ID</th> <!-- Nueva columna para mostrar el ID -->
+                    <th scope="col">ID</th>
                     <th scope="col">Fecha del Día</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Edad</th>
-                    <th scope="col">Fecha de Inicio <br> Primaria</th>
-                    <th scope="col">Fecha de Inicio <br> Secundaria</th>
-                    <th>Diferencia <br> del rango de Fechas</th>
-                    <th colspan="2">Acciones</th>
+                    <th scope="col">Fecha de Inicio Primaria</th>
+                    <th scope="col">Fecha de Inicio Secundaria</th>
+                    <th scope="col">Diferencia del rango de Fechas</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($registros as $registro) { ?>
                     <tr>
-                        <td><?= $registro['id'] ?></td> <!-- Muestra el ID del registro -->
+                        <td><?= $registro['id'] ?></td>
                         <td><?= $registro['fecha_dia'] ?></td>
                         <td><?= $registro['nombre'] ?></td>
                         <td><?= $registro['edad'] ?></td>
@@ -99,22 +98,57 @@ $registros = $stmt_registros->fetchAll(PDO::FETCH_ASSOC);
                                 <input type="hidden" name="registro_id" value="<?= $registro['id'] ?>">
                                 <button type="submit" class="btn btn-warning">Editar</button>
                             </form>
-                        </td>
-                        <td>
                             <form method="POST" action="eliminar_registro.php" onsubmit="return confirm('¿Estás seguro de eliminar este registro?');">
                                 <input type="hidden" name="registro_id" value="<?= $registro['id'] ?>">
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                            <!-- Botón "Mostrar Periodos Mensuales" para cada registro -->
+                            <form method="POST" action="mostrar_periodos.php">
+                                <input type="hidden" name="registro_id" value="<?= $registro['id'] ?>">
+                                <button type="submit" class="btn btn-primary">Periodos Mensuales</button>
                             </form>
                         </td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
-        <div>
-            <br>
+
+        <a href="create.php" class="btn btn-primary">Agregar Registro</a>
+        <a href="../login.php" class="btn btn-secondary">Cerrar Sesión</a>
+    </div>
+
+    
+    <div >
+
+        <footer class="bg-dark text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+            
+
+            <!-- Linkedin -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/isa%C3%AD-figueroa-5675bb146/" role="button"
+                ><i class="fab fa-linkedin-in"></i
+            ></a>
+
+            <!-- Github -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/ifigueroa065" role="button"
+                ><i class="fab fa-github"></i
+            ></a>
+            </section>
+            <!-- Section: Social media -->
         </div>
-        <a href="create.php">Agregar Registro |</a>
-        <a href="login.php">Cerrar Sesión</a>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 
+            <a >Isaí Figueroa | Desarrollador Web</a>
+        </div>
+        <!-- Copyright -->
+        </footer>
+  
     </div>
 </body>
 </html>

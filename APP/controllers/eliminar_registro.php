@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+include '../models/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener el ID del registro a eliminar desde el formulario

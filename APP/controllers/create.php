@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+include '../models/db.php';
 
 // Inicializa las variables para almacenar los valores del formulario
 $nombre = $edad = $fecha_primaria = $fecha_secundaria = '';
@@ -62,9 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Crear Registro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
     <div class="container">
@@ -102,5 +103,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="list.php">Volver a la Lista</a>
     </div>
     
+
+    
+    <div >
+
+        <footer class="bg-dark text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+            
+
+            <!-- Linkedin -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/isa%C3%AD-figueroa-5675bb146/" role="button"
+                ><i class="fab fa-linkedin-in"></i
+            ></a>
+
+            <!-- Github -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/ifigueroa065" role="button"
+                ><i class="fab fa-github"></i
+            ></a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 
+            <a >Isaí Figueroa | Desarrollador Web</a>
+        </div>
+        <!-- Copyright -->
+        </footer>
+  
+    </div>
 </body>
 </html>
