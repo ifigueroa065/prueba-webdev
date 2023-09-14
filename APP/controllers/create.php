@@ -68,6 +68,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
+    <!-- As a heading -->
+    <nav  class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+    <div class="container-fluid">
+        
+        <span class="navbar-brand mb-0 h1"><i class="fab fa-github"></i
+            >  Prueba  | ISAI FIGUEROA</span>
+    </div>
+    </nav>
     <div class="container">
         <h1 class="mt-4">Crear Registro</h1>
         

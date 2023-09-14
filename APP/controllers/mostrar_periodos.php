@@ -65,6 +65,14 @@ function generarPeriodosMensuales($fecha_inicio, $fecha_fin) {
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
+    <!-- As a heading -->
+    <nav  class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+    <div class="container-fluid">
+        
+        <span class="navbar-brand mb-0 h1"><i class="fab fa-github"></i
+            >  Prueba  | ISAI FIGUEROA</span>
+    </div>
+    </nav>
     <div class="container">
         <div class="sub">
             <h2>Bienvenido, <?php echo $_SESSION["username"]; ?></h2>
